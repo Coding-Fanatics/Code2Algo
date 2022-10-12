@@ -17,7 +17,7 @@ def trim_spaces(st):
 
 def Tokeniser(l):
     OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
-    FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
+    FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
     CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
     LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
     if CoRegx:
@@ -42,6 +42,8 @@ print("1932 is worse")
 a=5+3
 b = 5+3
 c = a*b
+list(c)
+set(a)
 while c > d:
     a = 33+45
     b =  a+v
