@@ -5,11 +5,21 @@ global f_index
 algorithm = ""
 f_index = 1
 
+def trim_spaces(st):
+    trimmed = ""
+    for i in range(len(st)):
+        if st[i] == ' ':
+            continue
+        else:
+            trimmed = st[i:]
+            break
+    return trimmed
+
 def Tokeniser(l):
     OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
-    FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
+    FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
     CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
-    LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$", l)
+    LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
     if CoRegx:
         # print("Condition: ", CoRegx)
         return 0
@@ -17,7 +27,7 @@ def Tokeniser(l):
         # print("Loop: ", LoRegx)    
         return 1
     elif FnRegx:
-        # print("Funciton: ", FnRegx)
+        # print("Function: ", FnRegx)
         return 2
     elif OpRegx:
         # print("Operational: ", OpRegx)
@@ -28,26 +38,28 @@ def Tokeniser(l):
 
 
 code = '''
+print("1932 is worse")
 a=5+3
 b = 5+3
 c = a*b
+list(c)
+set(a)
 while c > d:
     a = 33+45
     b =  a+v
     while a == b:
         d = a+3
     c = 3
-
-for i in range(100):
-    a = 5
-
-for i in range(3,100):
-    a = 5
-
-for i in range(1,10,1):
+for i in range(1,10,-56):
     a = 3
-
-d = 97    
+    d = 34+7
+for each_word in lambda:
+    for each in each_word:
+        print("Ansah is my Name")
+        a = ansah
+    k = 5 + 2
+    a = 6*7
+d = 97   
 '''
 lines = code.split('\n')
 
@@ -85,12 +97,14 @@ def loopsParser(i):
 
     whileReg = re.findall("^while|^ +while", lines[i])
     forReg = re.findall("^for|^ +for", lines[i])
+    if start_step+1==next_step:
+        fin = "repeat step {} ".format(next_step)
+    else:
+        fin = "repeat step {} to {} ".format(start_step+1,next_step)
+
     if whileReg:
         condition_ = lines[i][level(i)+5:]
-        if start_step+1 == next_step:
-            fin = "repeat step {} while {}".format(start_step+1,condition_)
-        else:
-            fin = "repeat step {} to {} while {}".format(start_step+1,next_step,condition_)
+        fin += " while {}".format(condition_)
         writer(fin)
     elif forReg:
         variable = re.findall("^for .+ in|^ +for .+ in", lines[i])
@@ -103,29 +117,37 @@ def loopsParser(i):
             range_ = rangeReg[0][1:-1]
             range_ = range_.split(",")
             if(len(range_)==1):
-                fin = "repeat step {} to {} for {}=0 to {}={} step 1".format(start_step+1,next_step,variable,variable,int(range_[0])-1)
-                writer(fin)
+                fin += "for {}=0 to {}={} step 1".format(variable,variable,int(range_[0])-1)                
             elif(len(range_)==2):
-                fin = "repeat step {} to {} for {}={} to {}={} step 1".format(start_step+1,next_step,variable,(range_[0]),variable,int(range_[1])-1)
-                writer(fin)
+                fin += "for {}={} to {}={} step 1".format(variable,(range_[0]),variable,int(range_[1])-1)
             elif(len(range_)==3):
-                fin = "repeat step {} to {} for {}={} to {}={} step {}".format(start_step+1,next_step,variable,(range_[0]),variable,int(range_[1])-1,range_[2])
-                writer(fin)
-            
+                fin += "for {}={} to {}={} step {}".format(variable,(range_[0]),variable,int(range_[1])-1,range_[2])
+            writer(fin)     
+        else:
+            forComprehension = re.findall("^for .+|^ +for .+",lines[i])[0][:-1]
+            forComprehension = trim_spaces(forComprehension)
+            fin += forComprehension
+            writer(fin)
 
+def functionParser(i):
+    line = trim_spaces(lines[i])
+    general_func = ['print','set','list','dictionary']
+    functionName = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*|^ +[a-zA-Z_][a-zA-Z0-9_]*", line)[0]
+    fin = functionName
+    if functionName in general_func:
+        functionContent = line[len(functionName)+1:-1]
+        fin += " " + functionContent
+    
+    writer(fin)
+
+#main function
 for i in range(len(lines)):
-    a = Tokeniser(lines[i]) 
-    if a == 3:
-        operatorParser(i)
-    elif a==1:
+    a = Tokeniser(lines[i])
+    if a==1:
         loopsParser(i)
-
-
-# keywords = ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
-# functions = []
-
-#def contrller(type,i)
-
-
+    elif a==2:
+        functionParser(i)
+    elif a == 3:
+        operatorParser(i)
 
 print(algorithm)
