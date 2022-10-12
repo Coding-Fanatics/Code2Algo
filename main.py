@@ -27,7 +27,7 @@ def Tokeniser(l):
         # print("Loop: ", LoRegx)    
         return 1
     elif FnRegx:
-        # print("Funciton: ", FnRegx)
+        # print("Function: ", FnRegx)
         return 2
     elif OpRegx:
         # print("Operational: ", OpRegx)
@@ -38,6 +38,7 @@ def Tokeniser(l):
 
 
 code = '''
+print("1932 is worse")
 a=5+3
 b = 5+3
 c = a*b
@@ -52,6 +53,7 @@ for i in range(1,10,-56):
     d = 34+7
 for each_word in lambda:
     for each in each_word:
+        print("Ansah is my Name")
         a = ansah
     k = 5 + 2
     a = 6*7
@@ -125,12 +127,25 @@ def loopsParser(i):
             fin += forComprehension
             writer(fin)
 
+def functionParser(i):
+    line = trim_spaces(lines[i])
+    general_func = ['print','set','list','dictionary']
+    functionName = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*|^ +[a-zA-Z_][a-zA-Z0-9_]*", line)[0]
+    fin = functionName
+    if functionName in general_func:
+        functionContent = line[len(functionName)+1:-1]
+        fin += " " + functionContent
+    
+    writer(fin)
+
 #main function
 for i in range(len(lines)):
     a = Tokeniser(lines[i])
-    if a == 3:
-        operatorParser(i)
-    elif a==1:
+    if a==1:
         loopsParser(i)
+    elif a==2:
+        functionParser(i)
+    elif a == 3:
+        operatorParser(i)
 
 print(algorithm)
