@@ -37,17 +37,14 @@ while c > d:
     while a == b:
         d = a+3
     c = 3
-
 for i in range(100):
     a = 5
-
+    c = a+5
 for i in range(3,100):
     a = 5
-
 for i in range(1,10,1):
     a = 3
-
-d = 97    
+d = 97   
 '''
 lines = code.split('\n')
 
@@ -85,12 +82,15 @@ def loopsParser(i):
 
     whileReg = re.findall("^while|^ +while", lines[i])
     forReg = re.findall("^for|^ +for", lines[i])
+
+    if start_step+1==next_step:
+        fin = "repeat step {} for".format(next_step)
+    else:
+        fin = "repeat step {} to {} for".format(start_step+1,next_step)
+
     if whileReg:
         condition_ = lines[i][level(i)+5:]
-        if start_step+1 == next_step:
-            fin = "repeat step {} while {}".format(start_step+1,condition_)
-        else:
-            fin = "repeat step {} to {} while {}".format(start_step+1,next_step,condition_)
+        fin += " while {}".format(condition_)
         writer(fin)
     elif forReg:
         variable = re.findall("^for .+ in|^ +for .+ in", lines[i])
@@ -103,18 +103,16 @@ def loopsParser(i):
             range_ = rangeReg[0][1:-1]
             range_ = range_.split(",")
             if(len(range_)==1):
-                fin = "repeat step {} to {} for {}=0 to {}={} step 1".format(start_step+1,next_step,variable,variable,int(range_[0])-1)
-                writer(fin)
+                fin += " {}=0 to {}={} step 1".format(variable,variable,int(range_[0])-1)                
             elif(len(range_)==2):
-                fin = "repeat step {} to {} for {}={} to {}={} step 1".format(start_step+1,next_step,variable,(range_[0]),variable,int(range_[1])-1)
-                writer(fin)
+                fin += " {}={} to {}={} step 1".format(variable,(range_[0]),variable,int(range_[1])-1)
             elif(len(range_)==3):
-                fin = "repeat step {} to {} for {}={} to {}={} step {}".format(start_step+1,next_step,variable,(range_[0]),variable,int(range_[1])-1,range_[2])
-                writer(fin)
-            
+                fin += " {}={} to {}={} step {}".format(variable,(range_[0]),variable,int(range_[1])-1,range_[2])
+            writer(fin)            
 
+#main function
 for i in range(len(lines)):
-    a = Tokeniser(lines[i]) 
+    a = Tokeniser(lines[i])
     if a == 3:
         operatorParser(i)
     elif a==1:
