@@ -14,7 +14,7 @@ while c > d:
     while a == b:
         d = a+3
     c = 3
-for i in range(1,10,-56):
+for i in range(1,10,2):
     a = 3
     d = 34+7
 for each_word in lambda:
