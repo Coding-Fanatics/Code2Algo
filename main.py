@@ -4,6 +4,7 @@ from Compiler import AlgoCompiler
 code = '''print("1932 is worse")
 a=5+3
 b = 5+3
+#12 is lucky
 c = a*b
 list(c)
 set(a)

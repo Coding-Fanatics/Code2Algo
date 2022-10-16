@@ -36,6 +36,7 @@ class AlgoCompiler():
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
         LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
+        ComRegx = re.findall("^#", l)
         if CoRegx:
             return 0
         elif LoRegx:
@@ -44,6 +45,8 @@ class AlgoCompiler():
             return 2
         elif OpRegx:
             return 3
+        elif ComRegx:
+            return 4
         else:
             return -1
 
@@ -142,6 +145,10 @@ class AlgoCompiler():
                 self.functionParser(i)
             elif a == 3:
                 self.operatorParser(i)
+            elif a == 4:
+                pass
+            else:
+                raise ValueError("There is an error in line {}".format(i))
 
         return 1
     
