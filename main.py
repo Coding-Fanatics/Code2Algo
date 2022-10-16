@@ -82,7 +82,7 @@ def writer(compiled_):
     f_index += 1
 
 def operatorParser(i):
-    compiled_ = lines[i][level(i):]
+    compiled_ = trim_spaces(lines[i])
     writer(compiled_)
 
 def loopsParser(i):
@@ -103,13 +103,13 @@ def loopsParser(i):
         fin = "repeat step {} to {} ".format(start_step+1,next_step)
 
     if whileReg:
-        condition_ = lines[i][level(i)+5:]
+        condition_ = trim_spaces(lines[i])[5:]
         fin += " while {}".format(condition_)
         writer(fin)
     elif forReg:
         variable = re.findall("^for .+ in|^ +for .+ in", lines[i])
         if variable:
-            variable = variable[0][level(i)+4:-3]
+            variable = trim_spaces(variable[0])[4:-3]
 
         rangeReg = re.findall("range(.+):$", lines[i])
         # print(variable)
@@ -137,7 +137,9 @@ def functionParser(i):
     if functionName in general_func:
         functionContent = line[len(functionName)+1:-1]
         fin += " " + functionContent
-    
+    else:
+        functionContent = line[len(functionName):]
+        fin += " " + functionContent
     writer(fin)
 
 #main function
