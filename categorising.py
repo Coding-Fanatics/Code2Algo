@@ -87,12 +87,6 @@ def controller(type, i, level=0):
             co(i, i+j)
         else:     
             return 1    
-        # j = i
-        # while((type == 4 or type != 5)and j<len(lines)):
-        #     type = Tokeniser(lines[j])
-        #     j+=1
-        # co(i, j)    
-        # return j-i
     elif type == 2:
         if level == 0:
             fn(i)
