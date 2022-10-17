@@ -31,24 +31,24 @@ class AlgoCompiler():
     def __init__(self,source):
         self.lines = source.split("\n")
     
-    def Tokeniser(self,l):
+    def Tokeniser(self, l):
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
-        FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
+        FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
-        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
-        ComRegx = re.findall("^#", l)
-        if CoRegx:
-            return 0
-        elif LoRegx:
-            return 1
-        elif FnRegx:
-            return 2
-        elif OpRegx:
-            return 3
-        elif ComRegx:
+        LoRegx = re.findall("^for+.*:$|^while+.*:$", l)
+        IndRegx = re.findall("^ +", l)
+        if len(IndRegx):
             return 4
+        elif len(CoRegx):
+            return 0
+        elif len(LoRegx):
+            return 1    
+        elif len(FnRegx):
+            return 2
+        elif len(OpRegx):
+            return 3       
         else:
-            return -1
+            return -1 
 
 
 

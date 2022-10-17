@@ -4,9 +4,12 @@ code = '''
 a=5+3
 b = 5+3
 c = a*b
+# Hello
 print("if(a>b):")
 if(a>b):
     print("Hello")
+    if a < c:
+        print('hi')
 elif a==b:
     print("yes")    
 else:
@@ -25,7 +28,10 @@ def Tokeniser(l):
     LoRegx = re.findall("^for+.*:$|^while+.*:$", l)
     IndRegx = re.findall("^ +", l)
     ElseRegx = re.findall("^else", l)
-    if len(IndRegx):
+    CommRegx = re.findall("^#", l)
+    if len(CommRegx):
+        return 6
+    elif len(IndRegx):
         return 4
     elif len(CoRegx):
         # print("Condition: ", CoRegx)
@@ -66,7 +72,8 @@ def conditionTranslator(i):
         op1 = op1[0]
         return op1
     except:
-        print("Error", i)    
+        raise ValueError("New Condition to Translate !")
+           
 
 
 def controller(type, i, level=0):
@@ -96,6 +103,9 @@ def controller(type, i, level=0):
         lines[i] = lines[i].lstrip()
         # print("--------")
         return 1+Checker(i+1, level)
+    elif type == 6:
+        comm(i)
+        return 1    
     else:
         return 1    
 
@@ -120,7 +130,8 @@ def co(i1, i2):
     else:
         print(str(i1)+". " + if_elif_else[0] + " " + op1 + " goto step-" + str(i1+1))            
     
-
+def comm(i):
+    print(str(i)+ ". Comment: "+lines[i][1:])
 
 def Checker(i=0, level = 0):                      # Checker Goes line by line checking and sending line to tokensier
     type = Tokeniser(lines[i]) 
@@ -133,3 +144,14 @@ i=0
 while(i<len(lines)):
     n = Checker(i)
     i+=1
+
+
+
+
+
+
+
+
+
+# keywords = ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+# functions = []
