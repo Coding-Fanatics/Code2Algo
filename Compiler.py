@@ -50,15 +50,7 @@ class AlgoCompiler():
         else:
             return -1
 
-    def trim_spaces(self,st):
-        trimmed = ""
-        for i in range(len(st)):
-            if st[i] == ' ':
-                continue
-            else:
-                trimmed = st[i:]
-                break
-        return trimmed
+
 
     def level(self,i):
         level = 0
@@ -93,7 +85,7 @@ class AlgoCompiler():
         # raise ValueError("There's an error in line "+str(i))
 
     def operatorParser(self,i):
-        compiled_ = self.Translate(self.trim_spaces(self.lines[i]))
+        compiled_ = self.Translate(self.lines[i].lstrip())
         self.writer(compiled_)
 
     def loopsParser(self,i):
@@ -114,13 +106,13 @@ class AlgoCompiler():
             fin = "repeat step {} to {} ".format(start_step+1,next_step)
 
         if whileReg:
-            condition_ = self.trim_spaces(self.lines[i])[5:]
+            condition_ = self.lines[i][5:].lstrip()
             fin += " while {}".format(condition_)
             self.writer(self.Translate(fin))
         elif forReg:
             variable = re.findall("^for .+ in|^ +for .+ in", self.lines[i])
             if variable:
-                variable = self.trim_spaces(variable[0])[4:-3]
+                variable = variable[0][4:-3].lstrip()
 
             rangeReg = re.findall("range(.+):$", self.lines[i])
             
@@ -136,12 +128,12 @@ class AlgoCompiler():
                 self.writer(self.Translate(fin))     
             else:
                 forComprehension = re.findall("^for .+|^ +for .+",self.lines[i])[0][:-1]
-                forComprehension = self.trim_spaces(forComprehension)
+                forComprehension = forComprehension.lstrip()
                 fin += forComprehension
                 self.writer(self.Translate(fin))
 
     def functionParser(self,i):
-        line = self.trim_spaces(self.lines[i])
+        line = self.lines[i].lstrip()
         general_func = ['print','set','list','dictionary']
         functionName = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*|^ +[a-zA-Z_][a-zA-Z0-9_]*", line)[0]
         fin = functionName
