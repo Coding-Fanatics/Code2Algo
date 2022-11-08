@@ -181,7 +181,8 @@ class AlgoCompiler():
         elif a == 6:
             return 0     
         else:
-            raise ValueError("There is an error in line {}".format(i))
+            pass
+            # raise ValueError("There is an error in line {}".format(i))
         return 1
 
     def returnOut(self):
