@@ -1,27 +1,27 @@
 import re
 
-# code = '''a = 3 > 4
-# a=5+3
-# b = 5+3
-# c = a*b
-# list(c)
-# set(a)
-# while c > d:
-#     a = 33+45
-#     b =  a+v
-#     while a == b:
-#         d = a+3
-#     c = 3
-# for i in range(1,10,1):
-#     a = 3
-#     d = 34+7
-# for each_word in lambda:
-#     for each in each_word:
-#         print("Ansah is my Name")
-#         a = ansah
-#     k = 5 + 2
-#     a = 6*7
-# d = 97''' 
+code = '''a = 3 > 4
+a=5+3
+b = 5+3
+c = a*b
+list(c)
+set(a)
+while c > d:
+    a = 33+45
+    b =  a+v
+    while a == b:
+        d = a+3
+    c = 3
+for i in range(1,10,1):
+    a = 3
+    d = 34+7
+for each_word in lambda:
+    for each in each_word:
+        print("Ansah is my Name")
+        a = ansah
+    k = 5 + 2
+    a = 6*7
+d = 97''' 
 
 class AlgoCompiler():
     algorithm = ""
@@ -101,12 +101,12 @@ class AlgoCompiler():
         whileReg = re.findall("^while|^ +while", self.lines[i])
         forReg = re.findall("^for|^ +for", self.lines[i])
         if start_step+1==next_step:
-            fin = "repeat step {} ".format(next_step)
+            fin = "repeat step {} ".format(next_step+1)
         else:
-            fin = "repeat step {} to {} ".format(start_step+1,next_step)
+            fin = "repeat step {} to {} ".format(start_step+2,next_step+1)
 
         if whileReg:
-            condition_ = self.lines[i][5:].lstrip()
+            condition_ = self.lines[i][initialLevel + 5:].lstrip()
             fin += " while {}".format(condition_)
             self.writer(self.Translate(fin))
         elif forReg:
@@ -167,7 +167,7 @@ class AlgoCompiler():
     def printOut(self):
         print(self.algorithm)
 
-# model = AlgoCompiler(code)
-# model.compile()
-# algorithm = model.returnOut()
-# print(algorithm)
+model = AlgoCompiler(code)
+model.compile()
+algorithm = model.returnOut()
+print(algorithm)
