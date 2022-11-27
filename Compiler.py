@@ -35,7 +35,7 @@ class AlgoCompiler():
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
-        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while.*:$|^ +for.*:$", l)
+        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while.+*:$|^ +for.+*:$", l)
         ComRegx = re.findall("^#", l)
         if CoRegx:
             return 0
