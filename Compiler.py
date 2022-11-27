@@ -35,7 +35,7 @@ class AlgoCompiler():
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
-        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
+        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while.+*:$|^ +for.+*:$", l)
         ComRegx = re.findall("^#", l)
         if CoRegx:
             return 0
@@ -48,6 +48,8 @@ class AlgoCompiler():
         elif ComRegx:
             return 4
         else:
+            if "while" in l.lstrip()[:5] or "for" in l.lstrip()[:3]:
+                return 1
             return -1
 
 
@@ -148,6 +150,8 @@ class AlgoCompiler():
     def compile(self):
         for i in range(len(self.lines)):
             a = self.Tokeniser(self.lines[i])
+            # print("hello",i,a)
+            # print(self/.lines[i],end = ' ')
             if a==1:
                 self.loopsParser(i)
             elif a==2:
@@ -157,7 +161,9 @@ class AlgoCompiler():
             elif a == 4:
                 pass
             else:
-                raise ValueError("There is an error in line {}".format(i))
+                pass
+            # print(a)  
+                # raise ValueError("There is an error in line {}".format(i))
 
         return 1
     
@@ -167,7 +173,7 @@ class AlgoCompiler():
     def printOut(self):
         print(self.algorithm)
 
-model = AlgoCompiler(code)
-model.compile()
-algorithm = model.returnOut()
-print(algorithm)
+# model = AlgoCompiler(code)
+# model.compile()
+# algorithm = model.returnOut()
+# print(algorithm)
