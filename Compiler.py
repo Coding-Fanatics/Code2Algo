@@ -49,6 +49,7 @@ class AlgoCompiler():
         CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
         LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
         ComRegx = re.findall("^#", l)
+        BlankRegx = re.findall("^ +", l)
         if CoRegx:
             return 0
         elif LoRegx:
@@ -59,6 +60,8 @@ class AlgoCompiler():
             return 3
         elif ComRegx:
             return 4
+        elif BlankRegx or l=='':
+            return 5    
         else:
             if "while" in l.lstrip()[:5] or "for" in l.lstrip()[:3]:
                 return 1
@@ -202,23 +205,23 @@ class AlgoCompiler():
 
 
     def compile(self):
-        for i in range(len(self.lines)):
+        i = 0
+        while(i< len(self.lines)):
             a = self.Tokeniser(self.lines[i])
-            if a == 0:
-                self.conditionParser(i)
-            elif a==1:
-                self.loopsParser(i)
-            elif a==2:
-                self.functionParser(i)
-            elif a == 3:
-                self.operatorParser(i)
-            elif a == 4:
-                pass
+            if a == 5:
+                del self.lines[i]
             else:
-                pass
-            # print(a)  
-                # raise ValueError("There is an error in line {}".format(i))
-
+                if a == 0:
+                    self.conditionParser(i)
+                elif a==1:
+                    self.loopsParser(i)
+                elif a==2:
+                    self.functionParser(i)
+                elif a == 3:
+                    self.operatorParser(i)
+                elif a == 4:
+                    pass
+                i+=1   
         return 1
     
     def returnOut(self):
@@ -227,7 +230,7 @@ class AlgoCompiler():
     def printOut(self):
         print(self.algorithm)
 
-# model = AlgoCompiler(code)
-# model.compile()
-# algorithm = model.returnOut()
-# print(algorithm)
+model = AlgoCompiler(code)
+model.compile()
+algorithm = model.returnOut()
+print(algorithm)
