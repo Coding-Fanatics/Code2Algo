@@ -6,6 +6,18 @@ b = 5+3
 c = a*b
 list(c)
 set(a)
+if a > 2:
+    print("Hello")
+elif a < 2:
+    print("Hih")
+    if a == 2:
+        print(2)
+    else:
+        e = 3    
+else:
+    s = 2 
+if 2<5:
+    s = s+1               
 while c > d:
     a = 33+45
     b =  a+v
@@ -34,7 +46,7 @@ class AlgoCompiler():
     def Tokeniser(self,l):
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
-        CoRegx = re.findall("^if+.*:$|else+.*:$|elif+.*:$", l)
+        CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
         LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
         ComRegx = re.findall("^#", l)
         if CoRegx:
@@ -48,8 +60,6 @@ class AlgoCompiler():
         elif ComRegx:
             return 4
         else:
-            if "while" in l.lstrip()[:5] or "for" in l.lstrip()[:3]:
-                return 1
             return -1
 
 
@@ -147,12 +157,52 @@ class AlgoCompiler():
             fin += " " + functionContent
         self.writer(self.Translate(fin))
 
+    def conditionParser(self, i):
+        initialLevel = self.level(i)
+        start_step = i
+        temp_line = i+1
+        next_step = temp_line
+        while(self.level(temp_line) != initialLevel and temp_line<len(self.lines)):
+            temp_line += 1
+
+        next_step = temp_line-1
+
+        ifRegx = re.findall("^if|^ +if", self.lines[i])
+        elseRegx = re.findall("^else|^ +else", self.lines[i])
+        elifRegx = re.findall("^elif|^ +elif", self.lines[i])
+
+        _elseRegx = re.findall("^else|^ +else", self.lines[next_step+1])
+        _elifRegx = re.findall("^elif|^ +elif", self.lines[next_step+1])
+
+        if len(ifRegx):
+            condition_ = self.lines[i][initialLevel + 2:].lstrip()
+            fin = "if {} ".format(condition_)
+            if len(_elifRegx) or len(_elseRegx):
+                fin += "- go to step {} else to {}".format(start_step+2, next_step+2) 
+            else:
+                fin += "- go to step {}".format(start_step+2)
+            # self.writer(self.Translate(fin))
+        elif len(elifRegx):
+            condition_ = self.lines[i][initialLevel + 4:].lstrip()
+            fin = "Else if {} ".format(condition_)
+            if len(_elseRegx):
+                fin += "- go to step {} else to {}".format(start_step+2, next_step+2)
+            else:
+                fin += "- go to step {}".format(start_step+2)     
+            # self.writer(self.Translate(fin))
+        elif len(elseRegx):
+            fin = "Else "
+            fin += "- go to step {} ".format(start_step+2)    
+
+        self.writer(self.Translate(fin))                     
+
+
     def compile(self):
         for i in range(len(self.lines)):
             a = self.Tokeniser(self.lines[i])
-            # print("hello",i,a)
-            # print(self/.lines[i],end = ' ')
-            if a==1:
+            if a == 0:
+                self.conditionParser(i)
+            elif a==1:
                 self.loopsParser(i)
             elif a==2:
                 self.functionParser(i)
@@ -161,9 +211,7 @@ class AlgoCompiler():
             elif a == 4:
                 pass
             else:
-                pass
-            # print(a)  
-                # raise ValueError("There is an error in line {}".format(i))
+                raise ValueError("There is an error in line {}".format(i))
 
         return 1
     
@@ -173,7 +221,7 @@ class AlgoCompiler():
     def printOut(self):
         print(self.algorithm)
 
-# model = AlgoCompiler(code)
-# model.compile()
-# algorithm = model.returnOut()
-# print(algorithm)
+model = AlgoCompiler(code)
+model.compile()
+algorithm = model.returnOut()
+print(algorithm)
