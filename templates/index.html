@@ -1,12 +1,43 @@
 <html>
     <head>
         <title>Code2Algo</title>
+        <style>
+            .source{
+                float: left;
+            }
+            .left{
+                float: left;
+                margin-left: 25;
+            }
+            .right{
+                float: right;
+                margin-right: 55;
+            }
+            .codes{
+                margin-top: 40;
+            }
+        </style>
     </head>
     <body>
-        <form action="#" method="post">
-            <p>Enter your Code :</p>
-            <p><textarea name="source" rows="30" cols="50"></textarea></p>
-            <p><input type="submit" value = "submit" /></p>
-        </form>
+        <div>
+            <div class="source">
+                <form action="#" method="post">
+                    <p>Enter your Code :</p>
+                    <p><textarea name="source" rows="30" cols="50"></textarea></p>
+                    <p><input type="submit" value = "submit" /></p>
+                </form>
+            </div>
+            <div class="left codes">
+                {% for each in content[0].split("\n") %}
+                    {{each}}<br>
+                {% endfor %}           
+            </div>
+
+            <div class="right codes">
+                {% for each in content[1].split("\n") %}
+                    {{each}}<br>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 </html>
