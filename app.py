@@ -10,9 +10,9 @@ def comb():
         model = AlgoCompiler(str(code))
         model.compile()
         algorithm = model.returnOut()
-        return render_template("result.html",content=[code,algorithm])
+        return render_template("index.html",content=[code,algorithm])
     else:
-        return render_template("index.html")
+        return render_template("index.html",content=['',''])
 
 
 if __name__ == "__main__":
