@@ -62,6 +62,8 @@ class AlgoCompiler():
         else:
             if "while" in l.lstrip()[:5] or "for" in l.lstrip()[:3]:
                 return 1
+            elif "if" in l.lstrip()[:2] or "else" in l.lstrip()[:4] or "elif" in l.lstrip()[:4]:
+                return 0
             return -1
 
 
