@@ -3,6 +3,8 @@ import re
 code = '''a = 3 > 4
 a=5+3
 b = 5+3
+def printHi(name):
+    print("Hi "+name)
 c = a*b
 list(c)
 set(a)
@@ -16,6 +18,7 @@ elif a < 2:
         e = 3    
 else:
     s = 2 
+
 if 2<5:
     s = s+1               
 while c > d:
@@ -48,12 +51,15 @@ class AlgoCompiler():
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
         LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
+        FunRegx = re.findall("^def .*:$", l.lstrip())
         ComRegx = re.findall("^#", l)
         BlankRegx = re.findall("^ +", l)
         if CoRegx:
             return 0
         elif LoRegx:
             return 1
+        elif FunRegx:
+            return 6
         elif FnRegx:
             return 2
         elif OpRegx:
@@ -163,6 +169,12 @@ class AlgoCompiler():
             functionContent = line[len(functionName):]
             fin += " " + functionContent
         self.writer(self.Translate(fin))
+    
+    def userFunctionParser(self,i):
+        line = self.lines[i].lstrip()
+        line = 'define '+line[4:]
+        line = ' '*self.level(i) + line
+        self.writer(line)
 
     def conditionParser(self, i):
         initialLevel = self.level(i)
@@ -221,6 +233,8 @@ class AlgoCompiler():
                     self.operatorParser(i)
                 elif a == 4:
                     pass
+                elif a == 6:
+                    self.userFunctionParser(i)
                 i+=1   
         return 1
     
