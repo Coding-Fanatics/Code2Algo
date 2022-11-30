@@ -5,6 +5,7 @@ a=5+3
 b = 5+3
 def printHi(name):
     print("Hi "+name)
+    a = 34+2
 c = a*b
 list(c)
 set(a)
@@ -27,6 +28,12 @@ while c > d:
     while a == b:
         d = a+3
     c = 3
+
+def factorial(n):
+    if n==1:
+        return 1
+    return n*n-1
+
 for i in range(1,10,1):
     a = 3
     d = 34+7
@@ -41,6 +48,7 @@ d = 97'''
 class AlgoCompiler():
     algorithm = ""
     f_index = 1
+    funcdefs = []
     lines = []
 
     def __init__(self,source):
@@ -176,6 +184,19 @@ class AlgoCompiler():
         line = ' '*self.level(i) + line
         self.writer(line)
 
+    def FunCollect(self,i):
+        line = self.lines[i].lstrip()
+        # functionName = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*|^ +[a-zA-Z_][a-zA-Z0-9_]*", line)[0]
+        functionName = re.findall("^def [a-zA-Z_][a-zA-Z0-9_]*", line)[0][4:]
+        funcLines = []
+        init_level = self.level(i)
+        temp_level = self.level(i+1)
+        temp_line = i+1
+        while(self.level(temp_line) > init_level and temp_line < len(self.lines)):
+            funcLines.append(self.lines[temp_line])
+            del self.lines[temp_line]
+        self.funcdefs.append((functionName,funcLines))
+
     def conditionParser(self, i):
         initialLevel = self.level(i)
         start_step = i
@@ -222,6 +243,9 @@ class AlgoCompiler():
             a = self.Tokeniser(self.lines[i])
             if a == 5:
                 del self.lines[i]
+            elif a == 6:
+                self.FunCollect(i)
+                del self.lines[i]
             else:
                 if a == 0:
                     self.conditionParser(i)
@@ -233,8 +257,6 @@ class AlgoCompiler():
                     self.operatorParser(i)
                 elif a == 4:
                     pass
-                elif a == 6:
-                    self.userFunctionParser(i)
                 i+=1   
         return 1
     
@@ -244,7 +266,11 @@ class AlgoCompiler():
     def printOut(self):
         print(self.algorithm)
 
+    def printFunCollect(self):
+        print(self.funcdefs)
+
 model = AlgoCompiler(code)
 model.compile()
 algorithm = model.returnOut()
+model.printFunCollect()
 print(algorithm)
