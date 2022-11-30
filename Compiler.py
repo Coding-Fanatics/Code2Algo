@@ -81,6 +81,8 @@ class AlgoCompiler():
                 return 1
             elif "if" in l.lstrip()[:2] or "else" in l.lstrip()[:4] or "elif" in l.lstrip()[:4]:
                 return 0
+            # if "def" in l.lstrip()[:3]:
+            #     return 6
             return -1
 
 
@@ -253,7 +255,7 @@ class AlgoCompiler():
             name, self.lines = each
             self.writer("Function Defenition of {}".format(name))
             self.compile1()
-            algorithm1 = model.returnOut(algorithm1)
+            algorithm1 = self.returnOut(algorithm1)
         self.algorithm = algorithm1
 
 

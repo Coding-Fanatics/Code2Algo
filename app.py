@@ -7,7 +7,7 @@ app = Flask(__name__)
 def comb():
     if request.method == "POST":
         code = request.form["source"]
-        model = AlgoCompiler(str(code))
+        model = AlgoCompiler(code)
         model.compile()
         algorithm = model.returnOut()
         return render_template("index.html",content=[code,algorithm])
