@@ -31,8 +31,8 @@ while c > d:
 
 def factorial(n):
     if n==1:
-        return 1
-    return n*n-1
+        a = 4
+    x = n*n-1
 
 for i in range(1,10,1):
     a = 3
@@ -95,10 +95,18 @@ class AlgoCompiler():
         
         return level 
     
-    def writer(self,compiled_):
-        self.algorithm += str(self.f_index)
-        self.algorithm += ". "+str(compiled_)+"\n"
-        self.f_index += 1
+    def writer(self,compiled_,mode = 1):
+        if mode == 0:
+            self.f_index = 0
+            self.algorithm = ""
+        elif self.f_index == 0:
+            self.algorithm = "-"*10 + "\n"
+            self.algorithm += str(compiled_)+"\n"
+            self.f_index += 1
+        else:
+            self.algorithm += str(self.f_index)
+            self.algorithm += ". "+str(compiled_)+"\n"
+            self.f_index += 1
     
     def Translate(self,op):
         op = op.split(">")
@@ -178,16 +186,16 @@ class AlgoCompiler():
             fin += " " + functionContent
         self.writer(self.Translate(fin))
     
-    def userFunctionParser(self,i):
-        line = self.lines[i].lstrip()
-        line = 'define '+line[4:]
-        line = ' '*self.level(i) + line
-        self.writer(line)
+    # def userFunctionParser(self,i):
+    #     line = self.lines[i].lstrip()
+    #     line = 'define '+line[4:]
+    #     line = ' '*self.level(i) + line
+    #     self.writer(line)
 
     def FunCollect(self,i):
         line = self.lines[i].lstrip()
         # functionName = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*|^ +[a-zA-Z_][a-zA-Z0-9_]*", line)[0]
-        functionName = re.findall("^def [a-zA-Z_][a-zA-Z0-9_]*", line)[0][4:]
+        functionName = re.findall("^def [a-zA-Z_].*", line)[0][4:-1]
         funcLines = []
         init_level = self.level(i)
         temp_level = self.level(i+1)
@@ -238,6 +246,18 @@ class AlgoCompiler():
 
 
     def compile(self):
+        funcs = self.compile1()
+        algorithm1 = self.returnOut()
+        for each in funcs:
+            self.writer('',0)
+            name, self.lines = each
+            self.writer("Function Defenition of {}".format(name))
+            self.compile1()
+            algorithm1 = model.returnOut(algorithm1)
+        self.algorithm = algorithm1
+
+
+    def compile1(self):
         i = 0
         while(i< len(self.lines)):
             a = self.Tokeniser(self.lines[i])
@@ -258,10 +278,10 @@ class AlgoCompiler():
                 elif a == 4:
                     pass
                 i+=1   
-        return 1
+        return self.funcdefs
     
-    def returnOut(self):
-        return self.algorithm
+    def returnOut(self,fileExt = ''):
+        return fileExt + self.algorithm
     
     def printOut(self):
         print(self.algorithm)
@@ -272,5 +292,5 @@ class AlgoCompiler():
 model = AlgoCompiler(code)
 model.compile()
 algorithm = model.returnOut()
-model.printFunCollect()
+# model.printFunCollect()
 print(algorithm)
