@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Code2Algo</title>
+        <style>
+            body{
+                margin:0%;
+                padding:0%;
+            }
+
+            .flex-container{
+                display:flex;
+                flex-flow:column;
+                margin:0%;
+                padding:0%;
+                height: 20%;
+            }
+
+            .head{
+                background-color: rgb(234, 234, 234);
+                font-family:'Courier New', Courier, monospace;
+                color: rgb(57, 57, 57);
+                text-align: left;
+            }
+
+            h1{
+                font-size: 300%;
+                padding-left: 2%;
+            }
+
+            .body{
+                display:flex;
+                /* justify-content: center; */
+                flex-flow: row wrap;
+                /* height:60%; */
+            }
+            .source{
+                display: flex;
+                flex-direction: column;
+                background-color: antiquewhite;
+                padding-left: 1%;
+                padding-right:1%;
+                width:48%;
+                font-family: 'Courier New', Courier, monospace;
+            }
+        
+            .right{
+                background-color: rgb(169, 169, 169);
+                display: flex;
+                flex-direction: column;
+                padding-right: 1%;
+                padding-left: 1%;
+                width:48%;
+                font-family: 'Courier New', Courier, monospace;
+                color: white;
+            }
+
+            .algo{
+                height:90%;
+                overflow-y:auto;
+                overflow-x:hidden;
+                /* margin-right: 55; */
+                background-color: rgb(255, 255, 255);
+                /* display: flex; */
+                /* flex-direction: column; */
+                padding-right: 1%;
+                padding-left: 1%;
+                width:auto;
+                font-family: 'Courier New', Courier, monospace;
+                color: black;
+            }
+            /* .codes{
+                background-color: brown;
+            }  */
+        </style>
+    </head>
+
+    <body>
+        <div class="flex-container">
+
+            <div class = "head">
+                <h1>CodAl</h1>
+            </div>
+
+            <div class="body">
+                <div class="source">
+                    <p><b>Your Code :</b></p>
+                        <form id="source" action="#" method="post">
+                             <!-- <p>Enter your Code :</p>  -->
+                        <textarea name="source" rows="43" cols="95">{% for each in content[0].split("\n") %}{{each}}{% endfor %}
+                    </textarea>
+                        <p><input type="submit" value = "submit"></p>
+                    </form>
+                </div>
+
+                <!-- <div class="left codes">
+                    <p>Your Algorithm :</p>
+                    {% for each in content[0].split("\n") %}
+                        {{each}}<br>
+                    {% endfor %}
+                </div> -->
+
+                <div class="right codes">
+                    <p><b>Your Algorithm - </b><br></p>
+                    <div class="algo">
+                        {% for each in content[1].split("\n") %}
+                        {{each}}<br>
+                    {% endfor %} 
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>
