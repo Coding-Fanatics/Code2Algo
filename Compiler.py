@@ -54,7 +54,7 @@ class AlgoCompiler():
     def __init__(self,source):
         self.lines = source.split("\n")
     
-    def Tokeniser(l):
+    def Tokeniser(self,l):
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
@@ -291,8 +291,8 @@ class AlgoCompiler():
     def printFunCollect(self):
         print(self.funcdefs)
 
-model = AlgoCompiler(code)
-model.compile()
-algorithm = model.returnOut()
-# model.printFunCollect()
-print(algorithm)
+# model = AlgoCompiler(code)
+# model.compile()
+# algorithm = model.returnOut()
+# # model.printFunCollect()
+# print(algorithm)
