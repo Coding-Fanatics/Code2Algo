@@ -15,14 +15,18 @@
                 flex-flow:column;
                 margin:0%;
                 padding:0%;
-                height: 20%;
+                height:100vh;
+                /* height: 30%; */
             }
 
             .head{
-                background-color: rgb(240, 240, 240);
+                display:flex;
+                flex-direction: row;
+                background-color: rgb(108, 108, 108);
                 font-family:'Courier New', Courier, monospace;
-                color: rgb(57, 57, 57);
-                text-align: left;
+                color: rgb(255, 255, 255);
+                /* text-align: left; */
+                height:15vh;
             }
 
             h1{
@@ -33,27 +37,38 @@
             .body{
                 display:flex;
                 flex-flow: row wrap;
+                height: 75vh;
             }
             
             .source{
                 display: flex;
                 flex-direction: column;
-                background-color: rgb(215, 235, 250);
-                padding-left: 1%;
-                padding-right:1%;
-                width:48%;
+                background-color: rgb(244, 244, 244);
+                color: rgb(80, 80, 80);
+                width:calc(50% - 1px);
+                height:80vh;
                 font-family: 'Courier New', Courier, monospace;
+                border-top: 1px solid rgb(189, 189, 189);
+                border-right: 1px solid rgb(189, 189, 189);
             }
         
             .right{
-                background-color: rgb(24, 73, 126);
+                border-top: 1px solid rgb(189, 189, 189);
+                background-color: rgb(244, 244, 244);
                 display: flex;
                 flex-direction: column;
-                padding-right: 1%;
-                padding-left: 1%;
-                width:48%;
+                width:50%;
+                height:80vh;
                 font-family: 'Courier New', Courier, monospace;
-                color: rgb(255, 255, 255);
+                color: rgb(80, 80, 80);
+            }
+
+            .topbar{
+                border-bottom:1px solid rgb(189, 189, 189); 
+                padding-left:3%;
+                display:flex;
+                flex-direction: row;
+                
             }
 
             .algo{
@@ -64,7 +79,20 @@
                 padding-left: 1%;
                 width:auto;
                 font-family: 'Courier New', Courier, monospace;
-                color: black;
+                color: rgb(0, 0, 0);
+            }
+
+            .button{
+                background-color: rgb(62, 111, 185); 
+                border:1px solid rgb(62, 111, 185);
+                border-radius: 2px;
+                color: rgb(255, 255, 255);
+                font-family: 'Courier New', Courier, monospace;
+                padding: 10px 21px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
             }
         </style>
     </head>
@@ -78,17 +106,29 @@
 
             <div class="body">
                 <div class="source">
-                    <p><b>Your Code :</b></p>
+
+                    <div class = "topbar">
+                        <div style="align-self: flex-start;">
+                            <p><b>Your Code :</b></p>
+                        </div>
+                        <div style="display:flex; width:50%; align-content:flex-end;">
+                            <div><button class = "button" form="source" formmethod="post" type="submit" value = "submit">Convert</button></div>
+                        </div>
+                    </div>
+
                         <form id="source" action="#" method="post">
                              <!-- <p>Enter your Code :</p>  -->
-                        <textarea name="source" rows="43" cols="95">{% for each in content[0].split("\n") %}{{each}}{% endfor %}
-                    </textarea>
-                        <p><input type="submit" value = "submit"></p>
+                        <textarea name="source" rows="46.5%" cols="99vh">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
+                        <!-- <p><button class = "button" type="submit" value = "submit">Convert</button></p> -->
                     </form>
                 </div>
 
                 <div class="right codes">
-                    <p><b>Your Algorithm - </b><br></p>
+                    <div class = "topbar">
+                        <p><b>Your Algorithm - </b>
+                            <span style="padding-left:61%;";><button class = "button" form="source" type="reset" value = "reset" style = "background-color: rgb(255, 133, 133); border:rgb(255, 133, 133);">Clear</button></span></p>
+                    </div>
+                    
                     <div class="algo">
                         {% for each in content[1].split("\n") %}
                         {{each}}<br>
