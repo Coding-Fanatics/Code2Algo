@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=display, initial-scale=1.0">
         <title>Code2Algo</title>
         <style>
             body{
@@ -22,16 +22,19 @@
             .head{
                 display:flex;
                 flex-direction: row;
+                justify-content: first-baseline;
                 background-color: rgb(108, 108, 108);
                 font-family:'Courier New', Courier, monospace;
                 color: rgb(255, 255, 255);
                 /* text-align: left; */
-                height:15vh;
+                /* height:20vh; */
             }
 
             h1{
+                margin:0%;
+                display:flex;
                 font-size: 300%;
-                padding-left: 2%;
+                padding: 2%;
             }
 
             .body{
@@ -46,7 +49,7 @@
                 background-color: rgb(244, 244, 244);
                 color: rgb(80, 80, 80);
                 width:calc(50% - 1px);
-                height:80vh;
+                height:85vh;
                 font-family: 'Courier New', Courier, monospace;
                 border-top: 1px solid rgb(189, 189, 189);
                 border-right: 1px solid rgb(189, 189, 189);
@@ -58,7 +61,7 @@
                 display: flex;
                 flex-direction: column;
                 width:50%;
-                height:80vh;
+                height:85vh;
                 font-family: 'Courier New', Courier, monospace;
                 color: rgb(80, 80, 80);
             }
@@ -75,6 +78,7 @@
                 overflow-y:auto;
                 overflow-x:hidden;
                 background-color: rgb(255, 255, 255);
+                padding-top: 1vh;
                 padding-right: 1%;
                 padding-left: 1%;
                 width:auto;
@@ -82,17 +86,45 @@
                 color: rgb(0, 0, 0);
             }
 
-            .button{
+            .buttonConvert{
                 background-color: rgb(62, 111, 185); 
                 border:1px solid rgb(62, 111, 185);
                 border-radius: 2px;
                 color: rgb(255, 255, 255);
                 font-family: 'Courier New', Courier, monospace;
-                padding: 10px 21px;
+                padding: 9px 21px;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
                 font-size: 16px;
+                
+                margin-left: 2vh;
+                margin-right: 2vh;
+            }
+
+            .buttonConvert:hover{
+                background-color: rgb(43, 77, 129); 
+                border:1px solid rgb(43, 77, 129);
+            }
+
+            .buttonClear{
+                background-color: rgb(255, 133, 133); 
+                border:1px solid rgb(255, 133, 133);
+                border-radius: 2px;
+                color: rgb(255, 255, 255);
+                font-family: 'Courier New', Courier, monospace;
+                padding: 9px 21px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin-left: 2vh;
+                margin-right: 2vh;
+            }
+
+            .buttonClear:hover{
+                background-color: rgb(181, 60, 60);
+                border:1px solid rgb(181, 60, 60); 
             }
         </style>
     </head>
@@ -103,33 +135,42 @@
             <div class = "head">
                 <h1>CodAl</h1>
             </div>
-
+<!-- -------------------------------------------------------------------------------------------------------- -->
             <div class="body">
+
                 <div class="source">
 
                     <div class = "topbar">
-                        <div style="align-self: flex-start;">
-                            <p><b>Your Code :</b></p>
+                        <div style="width:15%;">
+                            <p><b>Code</b></p>
                         </div>
-                        <div style="display:flex; width:50%; align-content:flex-end;">
-                            <div><button class = "button" form="source" formmethod="post" type="submit" value = "submit">Convert</button></div>
+                        <div style="width:85%; display:flex">
+                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;"><button class = "buttonConvert" form="source" formmethod="post" type="submit" value = "submit">Convert</button></div>
                         </div>
                     </div>
 
                         <form id="source" action="#" method="post">
                              <!-- <p>Enter your Code :</p>  -->
-                        <textarea name="source" rows="46.5%" cols="99vh">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
+                        <textarea name="source" rows="49vh" cols="99vh">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
                         <!-- <p><button class = "button" type="submit" value = "submit">Convert</button></p> -->
                     </form>
                 </div>
 
-                <div class="right codes">
+                <div class="right">
+
                     <div class = "topbar">
-                        <p><b>Your Algorithm - </b>
-                            <span style="padding-left:61%;";><button class = "button" form="source" type="reset" value = "reset" style = "background-color: rgb(255, 133, 133); border:rgb(255, 133, 133);">Clear</button></span></p>
+                        <div  style="width:15%;">
+                            <p><b>Algorithm</b></p>
+                        </div>
+                        <div style="width:85%; display:flex">
+                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
+                                <button class = "buttonClear" onclick="makeClear()">Clear</button>
+                            </div>
+                        </div>
+                           
                     </div>
                     
-                    <div class="algo">
+                    <div class="algo" id="algo">
                         {% for each in content[1].split("\n") %}
                         {{each}}<br>
                     {% endfor %} 
@@ -139,5 +180,10 @@
             </div>
 
         </div>
+        <script>
+            function makeClear(){
+                document.getElementById("algo").innerHTML = '';
+            }
+        </script>
     </body>
 </html>
