@@ -1,8 +1,5 @@
 <html>
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Code2Algo</title>
         <style>
             body{
@@ -19,7 +16,7 @@
             }
 
             .head{
-                background-color: rgb(240, 240, 240);
+                background-color: rgb(234, 234, 234);
                 font-family:'Courier New', Courier, monospace;
                 color: rgb(57, 57, 57);
                 text-align: left;
@@ -32,13 +29,14 @@
 
             .body{
                 display:flex;
+                /* justify-content: center; */
                 flex-flow: row wrap;
+                /* height:60%; */
             }
-            
             .source{
                 display: flex;
                 flex-direction: column;
-                background-color: rgb(215, 235, 250);
+                background-color: antiquewhite;
                 padding-left: 1%;
                 padding-right:1%;
                 width:48%;
@@ -46,26 +44,33 @@
             }
         
             .right{
-                background-color: rgb(24, 73, 126);
+                background-color: rgb(169, 169, 169);
                 display: flex;
                 flex-direction: column;
                 padding-right: 1%;
                 padding-left: 1%;
                 width:48%;
                 font-family: 'Courier New', Courier, monospace;
-                color: rgb(255, 255, 255);
+                color: white;
             }
 
             .algo{
+                height:90%;
                 overflow-y:auto;
                 overflow-x:hidden;
+                /* margin-right: 55; */
                 background-color: rgb(255, 255, 255);
+                /* display: flex; */
+                /* flex-direction: column; */
                 padding-right: 1%;
                 padding-left: 1%;
                 width:auto;
                 font-family: 'Courier New', Courier, monospace;
                 color: black;
             }
+            /* .codes{
+                background-color: brown;
+            }  */
         </style>
     </head>
 
@@ -86,6 +91,13 @@
                         <p><input type="submit" value = "submit"></p>
                     </form>
                 </div>
+
+                <!-- <div class="left codes">
+                    <p>Your Algorithm :</p>
+                    {% for each in content[0].split("\n") %}
+                        {{each}}<br>
+                    {% endfor %}
+                </div> -->
 
                 <div class="right codes">
                     <p><b>Your Algorithm - </b><br></p>
