@@ -19,7 +19,6 @@ elif a < 2:
         e = 3    
 else:
     s = 2 
-
 if 2<5:
     s = s+1               
 while c > d:
@@ -28,12 +27,10 @@ while c > d:
     while a == b:
         d = a+3
     c = 3
-
 def factorial(n):
     if n==1:
         a = 4
     x = n*n-1
-
 for i in range(1,10,1):
     a = 3
     d = 34+7
@@ -54,7 +51,7 @@ class AlgoCompiler():
     def __init__(self,source):
         self.lines = source.split("\n")
     
-    def Tokeniser(self, l):
+    def Tokeniser(self,l):
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
@@ -291,8 +288,8 @@ class AlgoCompiler():
     def printFunCollect(self):
         print(self.funcdefs)
 
-model = AlgoCompiler(code)
-model.compile()
-algorithm = model.returnOut()
-# model.printFunCollect()
-print(algorithm)
+# model = AlgoCompiler(code)
+# model.compile()
+# algorithm = model.returnOut()
+# # model.printFunCollect()
+# print(algorithm)
