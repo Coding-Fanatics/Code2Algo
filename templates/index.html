@@ -163,10 +163,11 @@
         <div class="flex-container">
 
             <div class = "head">
-                <h1>CodAl</h1>
+                <h1 title = "Code-2-Algorithm">CodAl</h1>
 
                 <div class = "head-topbar">
-                    <a class = "link" href="About.html">About</a>
+                    <a class = "link" title = "Github Repository" href = "https://github.com/Coding-Fanatics/Code2Algo/tree/main">Github</a>
+                    <a class = "link" title = "About Us Page" href="{{ url_for('about') }}">About</a>
                     
                 </div>
             </div>
@@ -180,7 +181,7 @@
                             <p><b>Code</b></p></div>
                         <div style="width:85%; display:flex">
                             <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
-                                <button class = "buttonConvert" form="source" formmethod="post" type="submit" value = "submit">Convert</button>
+                                <button class = "buttonConvert" title = "Converts the code to Algorithm" form="source" formmethod="post" type="submit" value = "submit">Convert</button>
                             </div>
                         </div>    
                     </div>
@@ -200,7 +201,7 @@
                         </div>
                         <div style="width:85%; display:flex">
                             <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
-                                <button class = "buttonClear" onclick="makeClear()">Clear</button>
+                                <button class = "buttonClear" title="Clears the Algorithm Terminal"onclick="makeClear()">Clear</button>
                             </div>
                         </div>
                            

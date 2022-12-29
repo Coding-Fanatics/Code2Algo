@@ -14,6 +14,9 @@ def comb():
     else:
         return render_template("index.html",content=['',''])
 
+@app.route("/About")
+def about():
+    return render_template("About.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
