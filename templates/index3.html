@@ -30,16 +30,6 @@
                 /* height:20vh; */
             }
 
-            .head-topbar{
-                display:flex;
-                flex-direction: row;
-                width:70%;
-                justify-content: flex-end;
-                margin-top: 5%;
-                margin-bottom:1%;
-                margin-right:1%;
-            }
-
             h1{
                 margin:0%;
                 display:flex;
@@ -50,7 +40,7 @@
             .body{
                 display:flex;
                 flex-flow: row wrap;
-                height: 85vh;
+                height: 75vh;
             }
             
             .source{
@@ -59,7 +49,7 @@
                 background-color: rgb(244, 244, 244);
                 color: rgb(80, 80, 80);
                 width:calc(50% - 1px);
-                height:86vh;
+                height:85vh;
                 font-family: 'Courier New', Courier, monospace;
                 border-top: 1px solid rgb(189, 189, 189);
                 border-right: 1px solid rgb(189, 189, 189);
@@ -84,26 +74,18 @@
                 
             }
 
-            .sourceCode{
-                overflow-y:auto;
-                overflow-x:auto;
-                height: 85vh;
-            }
-            
             .algo{
                 overflow-y:auto;
                 overflow-x:hidden;
                 background-color: rgb(255, 255, 255);
-                padding-top: 1vh;
                 padding-right: 1%;
-                padding-left: 2%;
+                padding-left: 1%;
                 width:auto;
                 font-family: 'Courier New', Courier, monospace;
                 color: rgb(0, 0, 0);
-                height: 85vh;
             }
 
-            .buttonConvert{
+            .button{
                 background-color: rgb(62, 111, 185); 
                 border:1px solid rgb(62, 111, 185);
                 border-radius: 2px;
@@ -118,44 +100,6 @@
                 margin-left: 2vh;
                 margin-right: 2vh;
             }
-
-            .buttonConvert:hover{
-                background-color: rgb(43, 77, 129); 
-                border:1px solid rgb(43, 77, 129);
-            }
-
-            .buttonClear{
-                background-color: rgb(255, 133, 133); 
-                border:1px solid rgb(255, 133, 133);
-                border-radius: 2px;
-                color: rgb(255, 255, 255);
-                font-family: 'Courier New', Courier, monospace;
-                padding: 9px 21px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin-left: 2vh;
-                margin-right: 2vh;
-            }
-
-            .buttonClear:hover{
-                background-color: rgb(181, 60, 60);
-                border:1px solid rgb(181, 60, 60); 
-            }
-
-            .link{
-                margin:0%;
-                color:white;
-                padding: 0.5% 1.5% 0.5% 1.5%;
-                text-decoration: none;
-            }
-
-            .link:hover{
-                background-color: rgb(41, 41, 41);
-                color:rgb(255, 255, 255);
-                text-decoration: none;
-            }
         </style>
     </head>
 
@@ -163,51 +107,44 @@
         <div class="flex-container">
 
             <div class = "head">
-                <h1 title = "Code-2-Algorithm">CodAl</h1>
-
-                <div class = "head-topbar">
-                    <a class = "link" title = "Github Repository" href = "https://github.com/Coding-Fanatics/Code2Algo/tree/main">Github</a>
-                    <a class = "link" title = "About Us Page" href="{{ url_for('about') }}">About</a>
-                    
-                </div>
+                <h1>CodAl</h1>
             </div>
-<!-- -------------------------------------------------------------------------------------------------------- -->
+
             <div class="body">
 
                 <div class="source">
 
                     <div class = "topbar">
                         <div style="width:15%;">
-                            <p><b>Code</b></p></div>
+                            <p><b>Code</b></p>
+                        </div>
                         <div style="width:85%; display:flex">
-                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
-                                <button class = "buttonConvert" title = "Converts the code to Algorithm" form="source" formmethod="post" type="submit" value = "submit">Convert</button>
-                            </div>
-                        </div>    
+                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;"><button class = "button" form="source" formmethod="post" type="submit" value = "submit">Convert</button></div>
+                        </div>
                     </div>
 
-                    <div class = "sourceCode">
-                        <form id="source" action="#" method="post">  
-                            <textarea name="source" rows="50%" cols="99%">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
-                        </form>
-                    </div>
+                        <form id="source" action="#" method="post">
+                             <!-- <p>Enter your Code :</p>  -->
+                        <div class="algo" name="source" role="textbox" contenteditable="True" style="margin-left: 1vh; margin-right: 1vh; margin-top: 1vh;">
+                            Enter Your Code Here..
+                        </div>     
+                        <!-- <textarea name="source" rows="46.5%" cols="99vh">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea> -->
+                        <!-- <p><button class = "button" type="submit" value = "submit">Convert</button></p> -->
+                    </form>
                 </div>
 
                 <div class="right">
-
                     <div class = "topbar">
                         <div  style="width:15%;">
                             <p><b>Algorithm</b></p>
                         </div>
                         <div style="width:85%; display:flex">
-                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
-                                <button class = "buttonClear" title="Clears the Algorithm Terminal"onclick="makeClear()">Clear</button>
-                            </div>
+                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;"><button class = "button" form="source" type="reset" value = "reset" style = "background-color: rgb(255, 133, 133); border:rgb(255, 133, 133);">Clear</button></div>
                         </div>
                            
                     </div>
                     
-                    <div class="algo" id="algo">
+                    <div class="algo">
                         {% for each in content[1].split("\n") %}
                         {{each}}<br>
                     {% endfor %} 
@@ -217,12 +154,5 @@
             </div>
 
         </div>
-
-        <script>
-            function makeClear(){
-                document.getElementById("algo").innerHTML = '';
-            }
-            
-        </script>
     </body>
 </html>

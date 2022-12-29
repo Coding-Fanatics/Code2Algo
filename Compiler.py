@@ -54,7 +54,7 @@ class AlgoCompiler():
     def __init__(self,source):
         self.lines = source.split("\n")
     
-    def Tokeniser(self,l):
+    def Tokeniser(self, l):
         OpRegx = re.findall("^[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+|^ +[a-zA-Z_][a-zA-Z0-9_]*[ ]*=[ ]*.+", l)
         FnRegx = re.findall("[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]|^ +[a-zA-Z_][a-zA-Z0-9_]*[(].*[)]", l)
         CoRegx = re.findall("^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l)
@@ -212,7 +212,7 @@ class AlgoCompiler():
         start_step = i
         temp_line = i+1
         next_step = temp_line
-        while(self.level(temp_line) != initialLevel and temp_line<len(self.lines)):
+        while(temp_line<len(self.lines) and self.level(temp_line) != initialLevel):
             temp_line += 1
 
         next_step = temp_line-1
@@ -221,8 +221,8 @@ class AlgoCompiler():
         elseRegx = re.findall("^else|^ +else", self.lines[i])
         elifRegx = re.findall("^elif|^ +elif", self.lines[i])
 
-        _elseRegx = re.findall("^else|^ +else", self.lines[next_step+1])
-        _elifRegx = re.findall("^elif|^ +elif", self.lines[next_step+1])
+        _elseRegx = re.findall("^else|^ +else", self.lines[next_step])
+        _elifRegx = re.findall("^elif|^ +elif", self.lines[next_step])
 
         if len(ifRegx):
             condition_ = self.lines[i][initialLevel + 2:].lstrip()
@@ -291,8 +291,8 @@ class AlgoCompiler():
     def printFunCollect(self):
         print(self.funcdefs)
 
-# model = AlgoCompiler(code)
-# model.compile()
-# algorithm = model.returnOut()
-# # model.printFunCollect()
-# print(algorithm)
+model = AlgoCompiler(code)
+model.compile()
+algorithm = model.returnOut()
+# model.printFunCollect()
+print(algorithm)
