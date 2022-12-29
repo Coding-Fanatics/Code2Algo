@@ -40,7 +40,7 @@
             .body{
                 display:flex;
                 flex-flow: row wrap;
-                height: 75vh;
+                height: 85vh;
             }
             
             .source{
@@ -49,7 +49,7 @@
                 background-color: rgb(244, 244, 244);
                 color: rgb(80, 80, 80);
                 width:calc(50% - 1px);
-                height:85vh;
+                height:86vh;
                 font-family: 'Courier New', Courier, monospace;
                 border-top: 1px solid rgb(189, 189, 189);
                 border-right: 1px solid rgb(189, 189, 189);
@@ -74,16 +74,23 @@
                 
             }
 
+            .sourceCode{
+                overflow-y:auto;
+                overflow-x:auto;
+                height: 85vh;
+            }
+            
             .algo{
                 overflow-y:auto;
                 overflow-x:hidden;
                 background-color: rgb(255, 255, 255);
                 padding-top: 1vh;
                 padding-right: 1%;
-                padding-left: 1%;
+                padding-left: 2%;
                 width:auto;
                 font-family: 'Courier New', Courier, monospace;
                 color: rgb(0, 0, 0);
+                height: 85vh;
             }
 
             .buttonConvert{
@@ -142,18 +149,19 @@
 
                     <div class = "topbar">
                         <div style="width:15%;">
-                            <p><b>Code</b></p>
-                        </div>
+                            <p><b>Code</b></p></div>
                         <div style="width:85%; display:flex">
-                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;"><button class = "buttonConvert" form="source" formmethod="post" type="submit" value = "submit">Convert</button></div>
-                        </div>
+                            <div style="align-items:center; display: flex; width: 100%; justify-content: flex-end;">
+                                <button class = "buttonConvert" form="source" formmethod="post" type="submit" value = "submit">Convert</button>
+                            </div>
+                        </div>    
                     </div>
 
-                        <form id="source" action="#" method="post">
-                             <!-- <p>Enter your Code :</p>  -->
-                        <textarea name="source" rows="49vh" cols="99vh">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
-                        <!-- <p><button class = "button" type="submit" value = "submit">Convert</button></p> -->
-                    </form>
+                    <div class = "sourceCode">
+                        <form id="source" action="#" method="post">  
+                            <textarea name="source" rows="50%" cols="99%">{% for each in content[0].split("\n") %}{{each}}{% endfor %}</textarea>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="right">
@@ -184,6 +192,7 @@
             function makeClear(){
                 document.getElementById("algo").innerHTML = '';
             }
+            
         </script>
     </body>
 </html>
