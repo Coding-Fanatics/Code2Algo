@@ -1,7 +1,7 @@
 import re
 from Compiler import AlgoCompiler
 
-code = '''print("1932 is worse")
+code = """print("1932 is worse")
 a=5+3
 b = 5+3
 #12 is lucky
@@ -23,19 +23,19 @@ for each_word in lambda:
         a = ansah
     k = 5 + 2
     a = 6*7
-d = 97''' 
+d = 97"""
 
-#initializing the compiler
+# initializing the compiler
 
 model = AlgoCompiler(code)
 
-#compiling the code :
+# compiling the code :
 
 model.compile()
 
-#getting the output from the compiler
+# getting the output from the compiler
 
 algorithm = model.returnOut()
 print(algorithm)
 
-#o r we can directly use model.printOut()
+# o r we can directly use model.printOut()
