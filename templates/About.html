@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+                margin:0%;
+                padding:0%;
+                font-family:'Courier New', Courier, monospace;
+            }
+
+        .flex-container{
+            display:flex;
+            flex-flow:column;
+            margin:0%;
+            padding:0%;
+            height:100vh;
+            /* height: 30%; */
+        }
+
+        .head{
+            display:flex;
+            flex-direction: row;
+            justify-content: first-baseline;
+            background-color: rgb(108, 108, 108);
+            font-family:'Courier New', Courier, monospace;
+            color: rgb(255, 255, 255);
+            /* text-align: left; */
+            /* height:20vh; */
+        }
+        h1, h2{
+            margin:0%;
+            display:flex;
+            font-size: 300%;
+            padding: 2%;
+        }
+
+        h2{
+            margin:0%;
+            display:flex;
+            font-size: 200%;
+            padding: 2% 2% 1% 2%;
+            color: rgb(55, 54, 54);
+        }
+
+        .head-topbar{
+            display:flex;
+            flex-direction: row;
+            width:70%;
+            justify-content: flex-end;
+            margin-top: 5%;
+            margin-bottom:1%;
+            margin-right:1%;
+        }
+
+        .link{
+                margin:0%;
+                color:white;
+                padding: 0.5% 1.5% 0.5% 1.5%;
+                text-decoration: none;
+            }
+
+        .link:hover{
+            background-color: rgb(41, 41, 41);
+            color:rgb(255, 255, 255);
+            text-decoration: none;
+        }
+
+        .creators_link{
+                margin:0%;
+                color:rgb(27, 27, 27);
+                padding: 0.5% 1.5% 0.5% 1.5%;
+                text-decoration: none;
+            }
+
+        .creators_link:hover{
+          
+            color:rgb(0, 108, 248);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+
+        <div class = "head">
+            <h1>CodAl</h1>
+
+            <div class = "head-topbar">
+                <a class = "link" href="{{ url_for('comb') }}" text-decoration="none">Home</a>
+                
+            </div>
+        </div>
+<!-- -------------------------------------------------------------------------------------------------------- -->
+        <div class="body">
+            <div>
+                <h2>Creators</h2>
+            </div>
+            <div>
+                <ul style="padding-left:5%; margin-top:0%;">
+                    <li><a href = "https://github.com/AnsahMohammad" class = "creators_link" target="_blank">Mohammad Ansah</a></li>
+                    <li><a href = "https://github.com/gobbledy-gook" class = "creators_link" target="_blank">Garvit Shah</a></li>
+                </ul>
+            </div>
+<hr>
+            <div>
+                <h2>How it Works ?</h2>
+                <p></p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
