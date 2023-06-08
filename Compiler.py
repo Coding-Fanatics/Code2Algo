@@ -4,6 +4,7 @@ import re
 
 class AlgoCompiler:
     """Compiler class for the algorithm"""
+
     algorithm = ""
     f_index = 1
     funcdefs = []
@@ -23,8 +24,7 @@ class AlgoCompiler:
         CoRegx = re.findall(
             "^if+.*:$|^else+.*:$|^elif+.*:$|^ +if+.*:$|^ +else+.*:$|^ +elif+.*:$", l
         )
-        LoRegx = re.findall(
-            "^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
+        LoRegx = re.findall("^for+.*:$|^while+.*:$|^ +while+.*:$|^ +for+.*:$", l)
         FunRegx = re.findall("^def .*:$", l.lstrip())
         ComRegx = re.findall("^#", l)
         BlankRegx = re.findall("^ +", l)
@@ -68,7 +68,7 @@ class AlgoCompiler:
         return level
 
     def writer(self, compiled_, mode=1):
-        """"Code writing handler"""
+        """ "Code writing handler"""
         if mode == 0:
             self.f_index = 0
             self.algorithm = ""
@@ -126,7 +126,7 @@ class AlgoCompiler:
             fin = "repeat step {} to {} ".format(start_step + 2, next_step + 1)
 
         if whileReg:
-            condition_ = self.lines[i][initialLevel + 5:].lstrip()
+            condition_ = self.lines[i][initialLevel + 5 :].lstrip()
             fin += " while {}".format(condition_)
             self.writer(self.Translate(fin))
         elif forReg:
@@ -149,8 +149,7 @@ class AlgoCompiler:
                     )
                 elif len(range_) == 3:
                     fin += "for {}={} to {}={} step {}".format(
-                        variable, (range_[0]), variable, int(
-                            range_[1]) - 1, range_[2]
+                        variable, (range_[0]), variable, int(range_[1]) - 1, range_[2]
                     )
                 self.writer(self.Translate(fin))
             else:
@@ -173,10 +172,10 @@ class AlgoCompiler:
         )[0]
         fin = functionName
         if functionName in general_func:
-            functionContent = line[len(functionName) + 1: -1]
+            functionContent = line[len(functionName) + 1 : -1]
             fin += " " + functionContent
         else:
-            functionContent = line[len(functionName):]
+            functionContent = line[len(functionName) :]
             fin += " " + functionContent
         self.writer(self.Translate(fin))
 
@@ -225,7 +224,7 @@ class AlgoCompiler:
         _elifRegx = re.findall("^elif|^ +elif", self.lines[next_step + 1])
 
         if len(ifRegx):
-            condition_ = self.lines[i][initialLevel + 2:].lstrip()
+            condition_ = self.lines[i][initialLevel + 2 :].lstrip()
             fin = "if {} ".format(condition_)
             if len(_elifRegx) or len(_elseRegx):
                 fin += "- go to step {} else to {}".format(
@@ -235,7 +234,7 @@ class AlgoCompiler:
                 fin += "- go to step {}".format(start_step + 2)
             # self.writer(self.Translate(fin))
         elif len(elifRegx):
-            condition_ = self.lines[i][initialLevel + 4:].lstrip()
+            condition_ = self.lines[i][initialLevel + 4 :].lstrip()
             fin = "Else if {} ".format(condition_)
             if len(_elseRegx):
                 fin += "- go to step {} else to {}".format(
